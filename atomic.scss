@@ -21,6 +21,14 @@ $color-divider:         rgba(#000, .12);
     color: $text-hint;
 }
 
+.l {
+    float: left;
+}
+
+.r {
+    float: right;
+}
+
 //offset margin and padding
 
 @mixin computed-for-offset($propertyName, $shorthand, $value) {
