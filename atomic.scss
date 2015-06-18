@@ -6,6 +6,7 @@
 $text-color:            rgba(#000, .87);
 $text-muted:            rgba(#000, .54);
 $text-hint:             rgba(#000, .26);
+$color-divider:         rgba(#000, .12);
 
 //font color
 .text {
@@ -31,7 +32,7 @@ $text-hint:             rgba(#000, .26);
     // 使用双重list处理
     @if $attr != null {
         $attrsList: (
-           (#{$shorthand}#{$value}, #{$propertyName}),
+           (#{$shorthand}#{$value}, '#{$propertyName}'),
            (#{$shorthand}t#{$value}, '#{$propertyName}-top'),
            (#{$shorthand}l#{$value}, '#{$propertyName}-left'),
            (#{$shorthand}b#{$value}, '#{$propertyName}-bottom'),
@@ -83,11 +84,11 @@ $text-hint:             rgba(#000, .26);
 
 // border
 .bd-divider {
-    border: 1px solid rgba(0, 0, 0, .12);
+    border: 1px solid $color-divider;
 }
 
 .bdb-divider {
-    border-bottom: 1px solid rgba(0, 0, 0, .12);
+    border-bottom: 1px solid $color-divider;
 }
 
 // line-height font-size
@@ -100,7 +101,7 @@ $text-hint:             rgba(#000, .26);
     }
 
     .lh#{$size} {
-        line-height: $size + 'px';
+        line-height: #{$size}px;
     }
 
     .f0 {
@@ -108,7 +109,7 @@ $text-hint:             rgba(#000, .26);
     }
 
     .f#{$size} {
-        font-size: $size + 'px';
+        font-size: #{$size}px;
     }
 
 }
