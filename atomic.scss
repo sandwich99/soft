@@ -1,0 +1,114 @@
+
+
+
+
+
+$text-color:            rgba(#000, .87);
+$text-muted:            rgba(#000, .54);
+$text-hint:             rgba(#000, .26);
+
+//font color
+.text {
+    color: $text-color;
+}
+
+.muted {
+    color: $text-muted;
+}
+
+.hint {
+    color: $text-hint;
+}
+
+//offset margin and padding
+
+@mixin computed-for-offset($propertyName, $shorthand, $value) {
+
+    $attr: $propertyName;
+    $pixels: #{$value}px;
+    $attrsList: null;
+
+    // 使用双重list处理
+    @if $attr != null {
+        $attrsList: (
+           (#{$shorthand}#{$value}, #{$propertyName}),
+           (#{$shorthand}t#{$value}, '#{$propertyName}-top'),
+           (#{$shorthand}l#{$value}, '#{$propertyName}-left'),
+           (#{$shorthand}b#{$value}, '#{$propertyName}-bottom'),
+           (#{$shorthand}r#{$value}, '#{$propertyName}-right')
+        );
+    }
+
+    @each $className, $attributeName in $attrsList {
+
+        .#{$className} {
+            #{$attributeName}: $pixels;
+        }
+    }
+}
+
+@mixin offset-for-property($name, $shorthand) {
+
+    @for $i from 1 through 9 {
+        @include computed-for-offset($name, $shorthand, $i);
+        @include computed-for-offset($name, $shorthand, $i * 10);
+        // margin 具有负值
+        @if $name == margin {
+            @include computed-for-offset($name, $shorthand, 0 - $i);
+        }
+    }
+}
+
+//margin
+@include offset-for-property(margin, m);
+//padding
+@include offset-for-property(padding, p);
+
+// display 属性
+@each $class, $attr in (db: block, di: inline, dib: inline-block, df: flex) {
+    .#{$class} {
+        display: $attr;
+    }
+}
+
+
+// backgroud-color
+@each $color, $value in ('white': #fff) {
+
+    .bg-#{$color} {
+        background-color: $value;
+    }
+}
+
+
+// border
+.bd-divider {
+    border: 1px solid rgba(0, 0, 0, .12);
+}
+
+.bdb-divider {
+    border-bottom: 1px solid rgba(0, 0, 0, .12);
+}
+
+// line-height font-size
+
+@for $i from 6 through 17 {
+    $size: $i * 2;
+
+    .lh0 {
+        line-height: 0;
+    }
+
+    .lh#{$size} {
+        line-height: $size + 'px';
+    }
+
+    .f0 {
+        font-size: 0;
+    }
+
+    .f#{$size} {
+        font-size: $size + 'px';
+    }
+
+}
