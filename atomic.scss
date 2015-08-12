@@ -81,13 +81,6 @@ $color-divider:         rgba(#000, .12);
 }
 
 
-// backgroud-color
-@each $color, $value in ('white': #fff) {
-
-    .bg-#{$color} {
-        background-color: $value;
-    }
-}
 
 
 // border
@@ -99,25 +92,47 @@ $color-divider:         rgba(#000, .12);
     border-bottom: 1px solid $color-divider;
 }
 
-// line-height font-size
 
-@for $i from 6 through 17 {
-    $size: $i * 2;
+@mixin make-map-property($property, $shorthand, $colorsMap) {
 
-    .lh0 {
-        line-height: 0;
+    @each $color, $value in $colorsMap {
+
+        .#{$shorthand}-#{$color} {
+            #{$property}: $value;
+        }
     }
-
-    .lh#{$size} {
-        line-height: #{$size}px;
-    }
-
-    .f0 {
-        font-size: 0;
-    }
-
-    .f#{$size} {
-        font-size: #{$size}px;
-    }
-
 }
+
+@mixin compute-dimension-property($property, $shorthand, $min, $max, $multiple: 1) {
+
+    .#{$shorthand}0 {
+        #{$property}: 0;
+    }
+    // line-height font-size
+    @for $i from $min through $max {
+        $size: $i;
+
+        .#{$shorthand}#{$size} {
+            #{$property}: #{$size}px;
+        }
+
+    }
+}
+
+
+@include compute-dimension-property(line-height, lh, 12, 50);
+@include compute-dimension-property(font-size, f, 12, 50);
+// @include compute-dimension-property(margin, m, 1, 10); //margin
+// @include compute-dimension-property(margin, m-, 1, 10, -1); //margin 负值
+// @include compute-dimension-property(margin-top, mt, 1, 10, -1);
+// @include compute-dimension-property(margin-right, mr, 1, 10, -1);
+// @include compute-dimension-property(margin-bottom, mb, 1, 10, -1);
+// @include compute-dimension-property(margin-left, ml, 1, 10, -1);
+// @include compute-dimension-property(font-size, f, 12, 50);
+
+
+
+
+
+
+
